@@ -78,6 +78,7 @@ public class DriveSubsystem extends SubsystemBase {
             double deadband = 0.1;
             double driveSpeed = 0.3 + 0.5 * Constants.controller.getLeftTriggerAxis();
 
+            // Exponential stick controls for better low-speed control
             if (x * x + y * y < deadband * deadband) {
                 x = 0;
                 y = 0;
@@ -93,7 +94,9 @@ public class DriveSubsystem extends SubsystemBase {
 
             boolean useHeading = useHeadingToggle.getBoolean(false);
 
+            // Assign value to chassis speeds based on whether to use heading or not.
             if (useHeading) {
+                // Uses the stick to determine the heading of the robot
                 tmp = swerveDrive.swerveController.getTargetSpeeds(
                         x,
                         y,
@@ -102,6 +105,7 @@ public class DriveSubsystem extends SubsystemBase {
                         swerveDrive.getOdometryHeading().getRadians(),
                         driveSpeed * swerveDrive.getMaximumChassisAngularVelocity());
             } else {
+                // Uses the stick to determine the angular velocity of the robot
                 double xMetersPerSecond = x * driveSpeed * swerveDrive.getMaximumChassisAngularVelocity();
                 double yMetersPerSecond = y * driveSpeed * swerveDrive.getMaximumChassisAngularVelocity();
                 double omegaRadiansPerSecond = -Constants.controller.getRightX() * driveSpeed
@@ -111,6 +115,8 @@ public class DriveSubsystem extends SubsystemBase {
                         yMetersPerSecond,
                         omegaRadiansPerSecond);
             }
+
+            // Drive the robot using the calculated chassis speeds
             swerveDrive.driveFieldOriented(tmp);
             System.out.println("odom=%.3f rightX=%.3f rightY=%.3f targetOmega=%.3f".formatted(
                     swerveDrive.getOdometryHeading().getRadians(),

@@ -25,14 +25,14 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
-    private final DriveSubsystem m_exampleSubsystem = new DriveSubsystem();
-    private final QuestSubsystem m_questSubsystem = new QuestSubsystem(m_exampleSubsystem);
+    private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+    private final QuestSubsystem m_questSubsystem = new QuestSubsystem(m_driveSubsystem);
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
-        m_exampleSubsystem.setDefaultCommand(m_exampleSubsystem.controllerDriveCommand());
+        m_driveSubsystem.setDefaultCommand(m_driveSubsystem.controllerDriveCommand());
         CommandScheduler.getInstance().registerSubsystem(m_questSubsystem);
         // Configure the trigger bindings
         configureBindings();
@@ -54,8 +54,8 @@ public class RobotContainer {
      */
     private void configureBindings() {
         new Trigger(Constants.controller::getLeftStickButton).whileTrue(
-                m_exampleSubsystem.run(() -> {
-                    m_exampleSubsystem.swerveDrive.lockPose();
+                m_driveSubsystem.run(() -> {
+                    m_driveSubsystem.swerveDrive.lockPose();
                 }));
     }
 
@@ -66,6 +66,6 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
-        return Autos.exampleAuto(m_exampleSubsystem);
+        return Autos.exampleAuto(m_driveSubsystem);
     }
 }
