@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.commands.Autos;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.LinearActuatorSubSystem;
 import frc.robot.subsystems.QuestSubsystem;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -27,13 +28,14 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
     private final QuestSubsystem m_questSubsystem = new QuestSubsystem(m_driveSubsystem);
-
+    private final LinearActuatorSubSystem m_LinearActuatorSubSystem = new LinearActuatorSubSystem();
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
         m_driveSubsystem.setDefaultCommand(m_driveSubsystem.controllerDriveCommand());
         CommandScheduler.getInstance().registerSubsystem(m_questSubsystem);
+        CommandScheduler.getInstance().registerSubsystem(m_LinearActuatorSubSystem);
         // Configure the trigger bindings
         configureBindings();
     }
@@ -57,6 +59,12 @@ public class RobotContainer {
                 m_driveSubsystem.run(() -> {
                     m_driveSubsystem.swerveDrive.lockPose();
                 }));
+
+        new Trigger(Constants.controller::getXButton).whileTrue(
+                m_LinearActuatorSubSystem.LinearActuatorMethodCommand(1));
+                
+        new Trigger(Constants.controller::getYButton).whileTrue(
+                m_LinearActuatorSubSystem.LinearActuatorMethodCommand(-1));
     }
 
     /**

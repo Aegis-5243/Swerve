@@ -28,6 +28,13 @@ public final class Constants {
 
     public static XboxController controller = new XboxController(0);
 
+    // Linear Actuator Constants 
+    public static class LinearActuatorConstants {
+        public static final double max = 4.3;
+        public static final double min = 0.6;
+}
+
+
     // this was lowkey eyeballed
     public static final Transform3d ROBOT_TO_QUEST = new Transform3d(Units.Inches.of(-2.5),
             Units.Inches.of(26.985 / 2 + 5), Units.Inches.of(15),
