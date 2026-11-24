@@ -59,7 +59,7 @@ public class LinearActuatorSubSystem extends SubsystemBase {
                     // go in the direction given at 20% the speed
                     else{
 
-                        cimMotor.set(0.2 * direction);
+                        cimMotor.set(0.3 * direction);
 
                     }
                     
