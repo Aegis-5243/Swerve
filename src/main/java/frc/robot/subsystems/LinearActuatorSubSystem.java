@@ -25,20 +25,33 @@ public class LinearActuatorSubSystem extends SubsystemBase {
     /** Creates a new ExampleSubsystem. */
     public LinearActuatorSubSystem() {}
 
-    public Command LinearActuatorMethodCommand(int direction) {
+    public enum LinearActuatorDirection{
+        UP(1),
+        DOWN(-1);
+        private final int dir;
+        LinearActuatorDirection(int dir){
+            this.dir = dir;
+        }
+        public int getDir(){
+            return dir;
+        }
+
+    }
+    public Command LinearActuatorMethodCommand(LinearActuatorDirection dir) {
         // Inline construction of command goes here.
         // Subsystem::RunOnce implicitly requires `this` subsystem.
+        int direction = dir.getDir();
         return runEnd(
                 () -> {
                     /* one-time action goes here */
                     // if it goes beyond the max height stop going up
-                    if(direction > 0 && pot.get() >= Constants.LinearActuatorConstants.max){
+                    if(direction > 0 && pot.get() >= Constants.LinearActuatorConstants.MAX){
 
                         cimMotor.set(0);
 
                     }
                     // if it goes bellow the min height stop going down
-                    else if(direction < 0 && pot.get() <= Constants.LinearActuatorConstants.min){
+                    else if(direction < 0 && pot.get() <= Constants.LinearActuatorConstants.MIN){
 
                         cimMotor.set(0);
 

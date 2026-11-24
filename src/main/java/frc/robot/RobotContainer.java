@@ -8,6 +8,7 @@ import frc.robot.commands.Autos;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LinearActuatorSubSystem;
 import frc.robot.subsystems.QuestSubsystem;
+import frc.robot.subsystems.LinearActuatorSubSystem.LinearActuatorDirection;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -61,10 +62,10 @@ public class RobotContainer {
                 }));
 
         new Trigger(Constants.controller::getXButton).whileTrue(
-                m_LinearActuatorSubSystem.LinearActuatorMethodCommand(1));
-                
+                m_LinearActuatorSubSystem.LinearActuatorMethodCommand(LinearActuatorDirection.UP));
+
         new Trigger(Constants.controller::getYButton).whileTrue(
-                m_LinearActuatorSubSystem.LinearActuatorMethodCommand(-1));
+                m_LinearActuatorSubSystem.LinearActuatorMethodCommand(LinearActuatorDirection.DOWN));
     }
 
     /**

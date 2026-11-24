@@ -30,8 +30,8 @@ public final class Constants {
 
     // Linear Actuator Constants 
     public static class LinearActuatorConstants {
-        public static final double max = 4.3;
-        public static final double min = 0.6;
+        public static final double MAX = 4.3;
+        public static final double MIN = 0.6;
 }
 
 
